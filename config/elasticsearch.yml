@@ -1,0 +1,5 @@
+network.host: [${SelfIP}, _local_]
+cluster.name: amp
+node.name: ${HOSTNAME}
+discovery.zen.ping.unicast.hosts: [${IPList}]
+http.compression: true
