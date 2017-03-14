@@ -8,8 +8,6 @@ This repo is outdated, content has been moved to the [main AMP repo](https://git
 
 ### Tags
 
-- `2.3`, `2.3.5`
-- `5.0.2`
 - `5.1.2`, `latest`
 
 ### Exposed ports
@@ -35,3 +33,25 @@ Elastic highly recommends to set the VM mmap count to 262144 on the host: https:
     sudo sysctl -w vm.max_map_count=262144
 
 The hard limit for file descriptors should be at least 65535. You can check it with `ulimit -Hn`.
+
+### docker service creation
+
+```
+docker service create --network aNetwork --name elasticsearch \
+--replicas 3 \
+--label io.amp.role="infrastructure" \
+-p 9200:9200 \
+-p 9300:9300 \
+appcelerator/docker-elasticsearch-cluster:5.1.2
+```
+
+Where aNetwork is any swarm network
+Minimum replicat is 3
+The name of the service should be `elasticsearch`
+
+
+It's possible to scale out using docker commande:
+
+```
+docker service scale elasticsearch=5 for instance to add node replicas
+```
